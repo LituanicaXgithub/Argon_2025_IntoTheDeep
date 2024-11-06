@@ -13,9 +13,13 @@ public class MecanumDrive {
 
     public MecanumDrive(OpMode opMode) {
         frontLeft = opMode.hardwareMap.get(DcMotor.class, "frontLeft");
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRight = opMode.hardwareMap.get(DcMotor.class, "frontRight");
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft = opMode.hardwareMap.get(DcMotor.class, "backLeft");
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight = opMode.hardwareMap.get(DcMotor.class, "backRight");
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -24,10 +28,10 @@ public class MecanumDrive {
     }
 
     public void drive(double y, double x, double rotation) {
-        double frontLeftPower = y + x - rotation;
-        double frontRightPower = y - x + rotation;
-        double backLeftPower = y - x - rotation;
-        double backRightPower = y + x + rotation;
+        double frontLeftPower = y + x + rotation;
+        double frontRightPower = y - x - rotation;
+        double backLeftPower = y - x + rotation;
+        double backRightPower = y + x - rotation;
 
         double maxPower = Math.max(1.0, Math.abs(frontLeftPower));
         maxPower = Math.max(maxPower, Math.abs(frontRightPower));
