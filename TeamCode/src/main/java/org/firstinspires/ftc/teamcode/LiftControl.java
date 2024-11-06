@@ -28,8 +28,12 @@ public class LiftControl {
         this.opMode = opMode;
         // Initialize motors and set their behaviors
         leftLiftMotor = opMode.hardwareMap.get(DcMotor.class, "leftLiftMotor");
+        leftLiftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftLiftMotor.setDirection(DcMotor.Direction.REVERSE);
         //leftLiftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightLiftMotor = opMode.hardwareMap.get(DcMotor.class, "rightLiftMotor");
+        rightLiftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightLiftMotor.setDirection(DcMotor.Direction.REVERSE);
         //rightLiftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         horizontalLiftMotor = opMode.hardwareMap.get(DcMotor.class, "horizontalLiftMotor");
         horizontalLiftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -123,8 +127,8 @@ public class LiftControl {
         power = Math.max(-LiftConstants.LIFT_POWER, Math.min(LiftConstants.LIFT_POWER, power));
 
         // Set motor powers based on PID control
-        leftLiftMotor.setPower(-power);
-        rightLiftMotor.setPower(power);  // Reverse power for right motor
+        leftLiftMotor.setPower(power);
+        rightLiftMotor.setPower(-power);  // Reverse power for right motor
 
         // Update telemetry to display current lift status and power
         opMode.telemetry.addData("Lift Position", currentPosition);
