@@ -7,9 +7,9 @@ import com.acmerobotics.dashboard.config.Config;
 public class LiftConstants {
 
     //Vertical lift
-    public static int LOW_POSITION = 500;
-    public static int MID_POSITION = 1000;
-    public static int HIGH_POSITION = 1500;
+    public static int LOW_POSITION = 100;
+    public static int MID_POSITION = 850;
+    public static int HIGH_POSITION = 1750;
     public static double LIFT_POWER = 1.0;
 
     //Horizontal lift (intake)
@@ -26,3 +26,4 @@ public class LiftConstants {
     //PID threshold. PID is enabled only within a specified threshold distance from the target
     public static int REDUCE_POWER_THRESHOLD = 150;
 }
+

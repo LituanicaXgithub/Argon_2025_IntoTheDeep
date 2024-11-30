@@ -6,7 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.constants.LiftConstants;
 import org.firstinspires.ftc.teamcode.enums.LiftStatus;
-import org.firstinspires.ftc.teamcode.events.LiftEventListener;
+import org.firstinspires.ftc.teamcode.eventHandlers.LiftEventHandler;
+import org.firstinspires.ftc.teamcode.eventListeners.LiftStatusOutput;
 
 public class LiftControl {
 
@@ -15,7 +16,7 @@ public class LiftControl {
     private final DcMotor rightLiftMotor;
     private final DcMotor horizontalLiftMotor;
     private LiftStatus liftStatus;
-    private LiftEventListener liftEventListener;
+    private final LiftEventHandler liftEventHandler = new LiftEventHandler();
     private final FtcDashboard dashboard;
     private final OpMode opMode;
 
@@ -29,11 +30,11 @@ public class LiftControl {
         // Initialize motors and set their behaviors
         leftLiftMotor = opMode.hardwareMap.get(DcMotor.class, "leftLiftMotor");
         leftLiftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftLiftMotor.setDirection(DcMotor.Direction.REVERSE);
+        //leftLiftMotor.setDirection(DcMotor.Direction.REVERSE);
         //leftLiftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightLiftMotor = opMode.hardwareMap.get(DcMotor.class, "rightLiftMotor");
         rightLiftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightLiftMotor.setDirection(DcMotor.Direction.REVERSE);
+        //rightLiftMotor.setDirection(DcMotor.Direction.REVERSE);
         //rightLiftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         horizontalLiftMotor = opMode.hardwareMap.get(DcMotor.class, "horizontalLiftMotor");
         horizontalLiftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -46,11 +47,6 @@ public class LiftControl {
         liftStatus = LiftStatus.IDLE;
         dashboard = FtcDashboard.getInstance();
         lastUpdateTime = System.currentTimeMillis();
-    }
-
-    // Set a listener for lift events
-    public void setLiftEventListener(LiftEventListener listener) {
-        this.liftEventListener = listener;
     }
 
     // Move the lift to a specific height based on the target status
@@ -149,9 +145,7 @@ public class LiftControl {
         if (liftStatus != LiftStatus.IDLE && Math.abs(error) < 10) {  // Consider target reached if within 10 units
             leftLiftMotor.setPower(0);
             rightLiftMotor.setPower(0);
-            if (liftEventListener != null) {
-                liftEventListener.onLiftTargetReached(liftStatus);  // Notify listener that target has been reached
-            }
+            liftEventHandler.addListener(new LiftStatusOutput(opMode));
             liftStatus = LiftStatus.IDLE;  // Set lift status to IDLE
         }
 
