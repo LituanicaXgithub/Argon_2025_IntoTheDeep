@@ -6,10 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class MecanumDrive {
 
-    private final DcMotor frontLeft;
-    private final DcMotor frontRight;
-    private final DcMotor backLeft;
-    private final DcMotor backRight;
+    public final DcMotor frontLeft;
+    public final DcMotor frontRight;
+    public final DcMotor backLeft;
+    public final DcMotor backRight;
+
 
     public MecanumDrive(OpMode opMode) {
         frontLeft = opMode.hardwareMap.get(DcMotor.class, "frontLeft");
@@ -28,6 +29,10 @@ public class MecanumDrive {
     }
 
     public void drive(double y, double x, double rotation) {
+        drive(y, x, rotation, 1);
+    }
+
+    public void drive(double y, double x, double rotation, double powerlimit) {
         double frontLeftPower = y + x + rotation;
         double frontRightPower = y - x - rotation;
         double backLeftPower = y - x + rotation;
@@ -43,9 +48,9 @@ public class MecanumDrive {
         backLeftPower /= maxPower;
         backRightPower /= maxPower;
 
-        frontLeft.setPower(frontLeftPower);
-        frontRight.setPower(frontRightPower);
-        backLeft.setPower(backLeftPower);
-        backRight.setPower(backRightPower);
+        frontLeft.setPower(frontLeftPower * powerlimit);
+        frontRight.setPower(frontRightPower * powerlimit);
+        backLeft.setPower(backLeftPower * powerlimit);
+        backRight.setPower(backRightPower *powerlimit);
     }
 }

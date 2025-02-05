@@ -13,15 +13,24 @@ public class LiftConstants {
     public static double LIFT_POWER = 1.0;
 
     //Horizontal lift (intake)
-    public static int HORIZONTAL_LIFT_LOW_POSITION = 300;
-    public static int HORIZONTAL_LIFT_MID_POSITION = 600;
-    public static int HORIZONTAL_LIFT_HIGH_POSITION = 900;
+
+    public static int HORIZONTAL_LIFT_START = 0;
+    public static int HORIZONTAL_LIFT_MAX_IN = 600;
+    public static int HORIZONTAL_LIFT_MAX_OUT = 1400;
     public static double HORIZONTAL_LIFT_POWER = 0.5;
 
     //PID for Vertical.
-    public static double LIFT_KP = 0.009;  // Proportional gain
-    public static double LIFT_KI = 0.0;   // Integral gain - if lift does not hold or reach position.
-    public static double LIFT_KD = 0.004;   // Derivative gain - dampens power while approaching the set target.
+    // PID coefficients for upward motion (heavier load)
+    public static final double LIFT_UP_KP = 0.005;
+    public static final double LIFT_UP_KI = 0.0001;
+    public static final double LIFT_UP_KD = 0.001;
+
+    // PID coefficients for downward motion (faster, less load)
+    public static final double LIFT_DOWN_KP = 0.003;
+    public static final double LIFT_DOWN_KI = 0.00005;
+    public static final double LIFT_DOWN_KD = 0.0005;
+
+
 
     //PID threshold. PID is enabled only within a specified threshold distance from the target
     public static int REDUCE_POWER_THRESHOLD = 150;
