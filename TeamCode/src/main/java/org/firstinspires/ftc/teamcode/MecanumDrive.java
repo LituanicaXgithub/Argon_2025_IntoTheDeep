@@ -38,7 +38,7 @@ public class MecanumDrive {
         double backLeftPower = y - x + rotation;
         double backRightPower = y + x - rotation;
 
-        double maxPower = Math.max(1.0, Math.abs(frontLeftPower));
+        double maxPower = Math.max(0.9, Math.abs(frontLeftPower));
         maxPower = Math.max(maxPower, Math.abs(frontRightPower));
         maxPower = Math.max(maxPower, Math.abs(backLeftPower));
         maxPower = Math.max(maxPower, Math.abs(backRightPower));

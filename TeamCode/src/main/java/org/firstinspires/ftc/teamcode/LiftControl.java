@@ -76,6 +76,8 @@ public class LiftControl {
         horizontalLiftMotor.setPower(power * LiftConstants.HORIZONTAL_LIFT_POWER);
     }
 
+
+
     // Update method to be called in the main loop to manage lift behavior and PID control
     public void update() {
         int currentPosition = rightLiftMotor.getCurrentPosition();
@@ -124,7 +126,7 @@ public class LiftControl {
         opMode.telemetry.addData("Lift Target", targetPosition);
         opMode.telemetry.addData("Lift Power", power);
         opMode.telemetry.addData("Lift Status", liftStatus);
-        opMode.telemetry.update();
+        //opMode.telemetry.update();
 
         // Send data to the dashboard for monitoring
         TelemetryPacket packet = new TelemetryPacket();

@@ -15,8 +15,10 @@ public class LiftConstants {
     //Horizontal lift (intake)
 
     public static int HORIZONTAL_LIFT_START = 0;
-    public static int HORIZONTAL_LIFT_MAX_IN = 600;
-    public static int HORIZONTAL_LIFT_MAX_OUT = 1400;
+    public static int HORIZONTAL_LIFT_MAX_IN = 760;
+    public static int HORIZONTAL_LIFT_MAX_OUT = 1800;
+
+    public static int HORIZONTAL_LIFT_HOME = 0;
     public static double HORIZONTAL_LIFT_POWER = 0.5;
 
     //PID for Vertical.
